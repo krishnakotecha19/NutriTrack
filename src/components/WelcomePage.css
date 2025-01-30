@@ -1,0 +1,74 @@
+/* Styling for the Welcome Page */
+.welcome-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+    background-color: #f7f9fc; /* Light background for the page */
+  }
+  
+  /* Styling for the welcome card */
+  .welcome-card {
+    background: linear-gradient(180deg, #bbcce2 0%, #e4b6e9 100%); /* Gradient background */
+    padding: 30px; /* Padding inside the card */
+    box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.4); /* Soft shadow around the card */
+    border-radius: 10px; /* Rounded corners */
+    width: 70%; /* Width adjusted for mobile responsiveness */
+    max-width: 200px; /* Maximum width */
+    text-align: center; /* Center the text */
+    color: white; /* Text color */
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Light border */
+    min-height: 350px; /* Minimum height to make it bigger on mobile */
+    height: auto; /* Adjust height automatically based on content */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  /* Logo styling */
+  .welcome-card .logo {
+    width: 100px; /* Adjust size of the logo */
+    margin: 0 auto 20px; /* Center horizontally and add space below the logo */
+    display: block; /* Ensure the logo is treated as a block element */
+  }
+  
+  /* Styling for heading */
+  .welcome-card h1 {
+    font-size: 32px;
+    margin: 20px 0;
+  }
+  
+  /* Styling for paragraph text */
+  .welcome-card p {
+    font-size: 16px;
+    margin-bottom: 30px;
+  }
+  
+  /* Styling for the button */
+  .welcome-card button {
+    background-color: #150117;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Hover effect for the button */
+  .welcome-card button:hover {
+    background-color: #c16fd5; /* Darker shade when hovered */
+  }
+  
+  /* Media Queries for Mobile */
+  @media (max-width: 400px) {
+    .welcome-card {
+      width: 900%;
+      max-width: 350px;
+      padding: 15px;
+      min-height: 1000px;
+    }
+  }
+  
+  
