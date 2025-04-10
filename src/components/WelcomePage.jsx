@@ -9,8 +9,8 @@ function WelcomePage() {
     <div className="welcome-page">
       <div className="welcome-card">
         <img src="/calories.png" alt="BalanceBites Logo" className="logo" />
-        <h1>Welcome to BalanceBites!</h1>
-        <p>To offer our best service we need more information from you.</p>
+        <h1>Welcome to NutriTrack!</h1>
+        <p>Lets manage your calories!!</p>
         <button onClick={() => navigate('/login')}>Let’s get started</button>
       </div>
     </div>
