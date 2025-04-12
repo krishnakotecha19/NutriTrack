@@ -12,24 +12,22 @@ const SignUp = () => {
 
   const navigate = useNavigate(); 
 
-  const API_BASE_URL = process.env.REACT_APP_API_URL;
-
   const handleSignup = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevents form from refreshing
 
     if (password !== confirmPassword) {
         setError("Passwords do not match!");
         return;
     }
 
-    setError("");
+    setError(""); // Clear previous errors
 
     const requestData = { username, email, password };
 
     console.log("🚀 Sending data:", requestData);
 
     try {
-        const response = await fetch(`${API_BASE_URL}/api/accounts/signup/`, {
+        const response = await fetch("http://127.0.0.1:8000/api/accounts/signup/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -41,7 +39,7 @@ const SignUp = () => {
         console.log("📝 Signup Response:", data);
 
         if (response.ok) {
-            navigate("/login");
+            navigate("/login"); // Redirect to login page after successful signup
         } else {
             setError(data.error || "Signup failed. Please try again.");
         }
@@ -49,7 +47,9 @@ const SignUp = () => {
         console.error("❌ Error during signup:", error);
         setError("Something went wrong. Please try again.");
     }
-  };
+};
+
+  
 
   return (
     <form onSubmit={handleSignup} className="signup-form">
