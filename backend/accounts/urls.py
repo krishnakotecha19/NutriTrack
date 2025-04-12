@@ -2,7 +2,7 @@ from django.urls import path
 from .views import (
     get_logged_in_user, get_food_list, 
     add_food, add_custom_food, get_user_details, 
-    update_weight_height, get_csrf_token, custom_login, signup_view,add_selected_food,
+     get_csrf_token, custom_login, signup_view,add_selected_food,
     get_selected_food,update_history,get_calories,get_full_history
 )
 
@@ -13,7 +13,7 @@ urlpatterns = [
     path("food/", get_food_list, name="get_food_list"),  # Search food
     path("add-food/", add_food, name="add_food"),  # Add food
     path("add-custom-food/", add_custom_food, name="add_custom_food"),  # Add custom food
-    path("update-weight-height/", update_weight_height, name="update_weight_height"), 
+   
   path('user/', get_user_details, name='get-user'), 
 
     path("csrf/", get_csrf_token, name="csrf"),

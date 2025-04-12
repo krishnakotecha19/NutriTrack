@@ -12,9 +12,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-!106hpg1xl48qg5li4x4x3^7x8x(uwn8@p01)r8w@ro96svshm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['192.168.230.140', 'localhost', '127.0.0.1']
+DEBUG = False
+ALLOWED_HOSTS = ['*']
 
 
 
@@ -97,12 +96,12 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',  # MySQL engine
-        'NAME': 'calorietracker',          # Replace with the actual database name
-        'USER': 'root',               # MySQL username
-        'PASSWORD': 'root',           # MySQL password
-        'HOST': 'localhost',                   # Or your database server's IP
-        'PORT': '3306',                        # Default MySQL port
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'railway',
+        'USER': 'root',
+        'PASSWORD': 'paCscHxwBJMBLGislBFMpbDqIDuhlVQk',
+        'HOST': 'switchyard.proxy.rlwy.net',
+        'PORT': '14794',
     }
 }
 

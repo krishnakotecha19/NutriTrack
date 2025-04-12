@@ -220,41 +220,6 @@ def add_custom_food(request):
         print("Error:", str(e))  # ✅ Print error in Django logs
         return Response({"error": str(e)}, status=500)
   
-
-
-
-from rest_framework.decorators import api_view
-from django.core.exceptions import ObjectDoesNotExist
-from .models import User
-@api_view(["POST"])
-def update_weight_height(request):
-    if request.method == "POST":
-        try:
-            data = json.loads(request.body)  # Parse JSON request
-            email = data.get("email")
-            weight = data.get("weight")
-            height = data.get("height")
-
-            if not email:
-                return JsonResponse({"error": "Email is required"}, status=400)
-
-            # ✅ Fetch user from the correct table
-            user = User.objects.filter(email=email).first()
-
-            if not user:
-                return JsonResponse({"error": "User not found"}, status=404)
-
-            # ✅ Update weight & height in your custom model
-            if weight:
-                user.user_weight = weight
-            if height:
-                user.user_height = height
-            user.save()
-
-            return JsonResponse({"message": "Weight & Height updated successfully!"})
-        except Exception as e:
-            return JsonResponse({"error": str(e)}, status=500)
-
     return JsonResponse({"error": "Invalid request method"}, status=405)
 @api_view(['GET'])
 def get_user_details(request):
@@ -301,14 +266,6 @@ def add_selected_food(request):
    
 
 
-
-    
-from django.http import JsonResponse
-from accounts.models import SelectedFood
-from django.contrib.auth.models import User
-from django.views.decorators.csrf import csrf_exempt
-import json
-
 @csrf_exempt
 def get_selected_food(request):
     if request.method == "GET":
@@ -318,19 +275,18 @@ def get_selected_food(request):
             return JsonResponse({"error": "User ID is required"}, status=400)
 
         try:
-            user_id = int(user_id)  # Convert to integer for safety
+            user_id = int(user_id)
             if not User.objects.filter(id=user_id).exists():
                 return JsonResponse({"error": "User not found"}, status=404)
 
-            selected_foods = SelectedFood.objects.filter(user_id=user_id).values("id", "food_name", "calories_kcal", "selected_at")
-            
-            # Convert datetime to string for JSON compatibility
+            selected_foods = SelectedFood.objects.filter(user_id=user_id).values("food_name", "calories_kcal", "selected_at")
+
+            # Format the datetime for JSON
             selected_foods_list = [
                 {
-                    "id": food["id"],
                     "food_name": food["food_name"],
                     "calories_kcal": food["calories_kcal"],
-                    "selected_at": food["selected_at"].isoformat(),  # Convert datetime to string
+                    "selected_at": food["selected_at"].isoformat(),
                 }
                 for food in selected_foods
             ]
@@ -341,6 +297,7 @@ def get_selected_food(request):
             return JsonResponse({"error": "Invalid user ID format"}, status=400)
 
     return JsonResponse({"error": "Invalid request method"}, status=405)
+
 
 from django.http import JsonResponse
 from django.utils.timezone import now
