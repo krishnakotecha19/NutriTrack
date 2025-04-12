@@ -1,0 +1,53 @@
+/* Enhanced Navigation.css */
+
+.navigation {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background:  #4CAF50; /* Gradient background */
+  padding: 12px 0;
+  
+  z-index: 1000;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.navigation a {
+  text-decoration: none;
+  color: #f9ebeb;
+  font-size: 18px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  padding: 12px;
+  transition: color 0.3s ease-in-out, transform 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.navigation a:hover {
+  color: white;
+  transform: scale(1.1);
+  text-decoration: none;
+}
+
+.navigation a:active {
+  transform: scale(0.95);
+}
+
+@media (max-width: 480px) {
+  .navigation {
+      padding: 10px 0;
+  }
+  .navigation a {
+      font-size: 14px;
+      padding: 10px;
+  }
+}
