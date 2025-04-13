@@ -47,22 +47,34 @@ const CalorieIn = () => {
   };
 
   useEffect(() => {
-    fetchLatestSelectedFood();
-  }, [user_id]); 
+    fetchFoodList();  // No query passed = fetch 10 default foods
+  }, []);
+  
 
-  const fetchFoodList = async () => {
-    if (!foodQuery) return;
+  const fetchFoodList = async (query = "") => {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/accounts/food/?search=${foodQuery}`);
+      let url = `${API_BASE_URL}/api/accounts/food/`;
+      if (query) {
+        url += `?search=${query}`;
+      }
+  
+      const response = await fetch(url);
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       const data = await response.json();
-      setResults(data);
+  
+      // If there's no query, show only first 10 items
+      if (!query) {
+        setResults(data.slice(0, 10));
+      } else {
+        setResults(data);
+      }
     } catch (error) {
       console.error("Error fetching food list:", error);
     }
   };
+  
 
   const selectFood = async (foodItem) => {
     if (!user_id) return;
@@ -135,7 +147,8 @@ const CalorieIn = () => {
             placeholder="Search food..."
             className="search-input"
           />
-          <button className="search-button" onClick={fetchFoodList}>Search</button>
+          <button className="search-button" onClick={() => fetchFoodList(foodQuery)}>Search</button>
+
           {results.length > 0 && (
             <div className="results-list">
               {results.map((item, index) => (

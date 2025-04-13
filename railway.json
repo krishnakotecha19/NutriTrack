@@ -1,0 +1,9 @@
+{
+    "build": {
+      "builder": "NIXPACKS",
+      "buildCommand": "pip install -r requirements.txt",
+      "startCommand": "gunicorn calorietrackerproject.wsgi",
+      "rootDirectory": "calorietrackerproject/backend"
+    }
+  }
+  
