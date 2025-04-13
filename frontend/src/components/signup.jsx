@@ -53,7 +53,7 @@ const SignUp = () => {
 
   return (
     <form onSubmit={handleSignup} className="signup-form">
-      <h4>Welcome to forkit</h4>
+      <h4>Welcome to Feastify</h4>
       <div className="input-group">
         <label htmlFor="username">Username</label>
         <input
