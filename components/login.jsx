@@ -9,15 +9,15 @@ const Login = ({ setIsLoggedIn }) => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
 
   const fetchCSRFToken = async () => {
     console.log("📡 Fetching CSRF Token...");
     
     try {
-        const csrfResponse = await fetch("http://127.0.0.1:8000/api/accounts/csrf/", {
+        const csrfResponse = await fetch(`${API_BASE_URL}/api/accounts/csrf/`, {
             method: "GET",
-            credentials: "include",  // ✅ Ensures cookies are stored
+            credentials: "include",
         });
 
         if (!csrfResponse.ok) {
@@ -32,53 +32,52 @@ const Login = ({ setIsLoggedIn }) => {
         console.error("❌ CSRF Token Fetch Error:", error);
         return null;
     }
-};const handleSubmit = async (e) => {
-  e.preventDefault();
-  setError("");
+  };
 
-  try {
-      const csrfToken = await fetchCSRFToken();  // ✅ Fetch CSRF token first
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
 
-      console.log("📡 Sending Login Request...");
+    try {
+        const csrfToken = await fetchCSRFToken();
 
-      const response = await fetch("http://127.0.0.1:8000/api/accounts/login/", {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json",
-              "X-CSRFToken": csrfToken,
-          },
-          credentials: "include",
-          body: JSON.stringify({
-              email: email,
-              password: password,
-          }),
-      });
+        console.log("📡 Sending Login Request...");
 
-      const data = await response.json();
-      console.log("📝 Response Data:", data);
+        const response = await fetch(`${API_BASE_URL}/api/accounts/login/`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrfToken,
+            },
+            credentials: "include",
+            body: JSON.stringify({
+                email: email,
+                password: password,
+            }),
+        });
 
-      if (response.ok) {
-          console.log("✅ Login successful", data);
-          localStorage.setItem("user_id", data.user_id);  // ✅ Store user_id in local storage
-          setIsLoggedIn(true);
-          navigate("/home");
-      } else {
-          console.error("❌ Login Error:", data);
-          setError(data.error || "Invalid credentials");
-      }
-  } catch (error) {
-      console.error("❌ Network Error:", error);
-      setError("Something went wrong. Please try again.");
-  }
-};
+        const data = await response.json();
+        console.log("📝 Response Data:", data);
 
-
+        if (response.ok) {
+            console.log("✅ Login successful", data);
+            localStorage.setItem("user_id", data.user_id);
+            setIsLoggedIn(true);
+            navigate("/home");
+        } else {
+            console.error("❌ Login Error:", data);
+            setError(data.error || "Invalid credentials");
+        }
+    } catch (error) {
+        console.error("❌ Network Error:", error);
+        setError("Something went wrong. Please try again.");
+    }
+  };
 
   return (
-    
     <div className="login-container">
       <div className="login-card">
-        <h4>Welcome to forkit</h4>
+        <h4>Welcome to Feastify</h4>
         <form onSubmit={handleSubmit}>
           <div className="input-group">
             <label htmlFor="email">Email</label>

@@ -12,22 +12,24 @@ const SignUp = () => {
 
   const navigate = useNavigate(); 
 
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
+
   const handleSignup = async (e) => {
-    e.preventDefault(); // Prevents form from refreshing
+    e.preventDefault();
 
     if (password !== confirmPassword) {
         setError("Passwords do not match!");
         return;
     }
 
-    setError(""); // Clear previous errors
+    setError("");
 
     const requestData = { username, email, password };
 
     console.log("🚀 Sending data:", requestData);
 
     try {
-        const response = await fetch("http://127.0.0.1:8000/api/accounts/signup/", {
+        const response = await fetch(`${API_BASE_URL}/api/accounts/signup/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -39,7 +41,7 @@ const SignUp = () => {
         console.log("📝 Signup Response:", data);
 
         if (response.ok) {
-            navigate("/login"); // Redirect to login page after successful signup
+            navigate("/login");
         } else {
             setError(data.error || "Signup failed. Please try again.");
         }
@@ -47,13 +49,11 @@ const SignUp = () => {
         console.error("❌ Error during signup:", error);
         setError("Something went wrong. Please try again.");
     }
-};
-
-  
+  };
 
   return (
     <form onSubmit={handleSignup} className="signup-form">
-      <h4>Welcome to forkit</h4>
+      <h4>Welcome to Feastify</h4>
       <div className="input-group">
         <label htmlFor="username">Username</label>
         <input

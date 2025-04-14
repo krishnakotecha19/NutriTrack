@@ -7,12 +7,14 @@ const Home = () => {
   const [historyList, setHistoryList] = useState([]); // ✅ Full history list
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [csrfToken, setCsrfToken] = useState("");
+  const [csrfToken, setCsrfToken] = useState(""); 
+
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
 
   // ✅ Fetch CSRF token
   const fetchCsrfToken = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/accounts/csrf/", {
+      const response = await fetch(`${API_BASE_URL}/api/accounts/csrf/`, {
         credentials: "include",
       });
       const data = await response.json();
@@ -34,7 +36,7 @@ const Home = () => {
       }
 
       const response = await fetch(
-        `http://127.0.0.1:8000/api/accounts/get_calories/?user_id=${encodeURIComponent(userId)}`,
+        `${API_BASE_URL}/api/accounts/get_calories/?user_id=${encodeURIComponent(userId)}`,
         {
           method: "GET",
           credentials: "include",
@@ -60,23 +62,22 @@ const Home = () => {
   const fetchFullHistory = async () => {
     const userId = localStorage.getItem("user_id");
     const response = await fetch(
-      `http://127.0.0.1:8000/api/accounts/get_full_history/?user_id=${userId}`,
+      `${API_BASE_URL}/api/accounts/get_full_history/?user_id=${userId}`,
       { credentials: "include" }
     );
     const data = await response.json();
-  
+
     // Get today's date in YYYY-MM-DD format
     const today = new Date().toISOString().split("T")[0];
-  
+
     // Filter out today's entry
     const filteredHistory = data.history.filter(
       (item) => item.date !== today
     );
-  
+
     setHistoryList(filteredHistory);
     console.log("📆 Filtered Past History:", filteredHistory);
   };
-  
 
   // ✅ Update calories when food is added
   const updateCalorieHistory = async (calories) => {
@@ -90,7 +91,7 @@ const Home = () => {
       }
 
       const response = await fetch(
-        "http://127.0.0.1:8000/api/accounts/update_calories/",
+        `${API_BASE_URL}/api/accounts/update_calories/`,
         {
           method: "POST",
           headers: {
@@ -125,11 +126,11 @@ const Home = () => {
   return (
     <div className="home-container">
       <h2>Home</h2>
-  
+
       <button className="add-food-btn" onClick={() => navigate("/calorieIn")}>
-        + Add Food
+        Show Food
       </button>
-  
+
       {loading ? (
         <p>Loading history...</p>
       ) : error ? (
@@ -139,7 +140,7 @@ const Home = () => {
           Today's Total Calorie Intake: <strong>{history} kcal</strong>
         </div>
       )}
-  
+
       {historyList.length > 0 && (
         <div className="history-section">
           <div className="past-calorie-cards">
@@ -154,5 +155,6 @@ const Home = () => {
       )}
     </div>
   );
-};  
+};
+
 export default Home;
