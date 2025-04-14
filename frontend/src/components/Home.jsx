@@ -128,7 +128,7 @@ const Home = () => {
       <h2>Home</h2>
 
       <button className="add-food-btn" onClick={() => navigate("/calorieIn")}>
-        Show Food
+        + Add Food
       </button>
 
       {loading ? (

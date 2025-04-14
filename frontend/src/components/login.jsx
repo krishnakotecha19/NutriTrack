@@ -77,7 +77,7 @@ const Login = ({ setIsLoggedIn }) => {
   return (
     <div className="login-container">
       <div className="login-card">
-        <h4>Welcome to Feastify</h4>
+        <h4>Welcome to feastify</h4>
         <form onSubmit={handleSubmit}>
           <div className="input-group">
             <label htmlFor="email">Email</label>
