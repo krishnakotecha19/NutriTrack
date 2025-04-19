@@ -44,7 +44,7 @@ const Home = () => {
       );
 
       const data = await response.json();
-      console.log("📊 Today's Calories:", data);
+      console.log(" Today's Calories:", data);
 
       if (response.ok) {
         setHistory(data.total_calories || 0);
@@ -76,7 +76,7 @@ const Home = () => {
     );
 
     setHistoryList(filteredHistory);
-    console.log("📆 Filtered Past History:", filteredHistory);
+    console.log(" Filtered Past History:", filteredHistory);
   };
 
  
