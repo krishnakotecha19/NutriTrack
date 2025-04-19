@@ -38,7 +38,7 @@ const CalorieIn = () => {
 
       setSelectedFoods(todayFoods);
     } catch (error) {
-      console.error("❌ Error fetching selected food:", error);
+      console.error(" Error fetching selected food:", error);
     }
   };
 
@@ -74,12 +74,12 @@ const CalorieIn = () => {
       if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
   
       const savedData = await response.json();
-      console.log("✅ Selected food saved:", savedData);
+      console.log(" Selected food saved:", savedData);
   
       fetchLatestSelectedFood();
       setShowSearchCard(false); // Close the search card
     } catch (error) {
-      console.error("❌ Error saving selected food:", error);
+      console.error(" Error saving selected food:", error);
     }
   };
   
@@ -100,13 +100,13 @@ const CalorieIn = () => {
         if (!response.ok) throw new Error("Failed to save food to database");
 
         const savedFood = await response.json();
-        console.log("✅ Food saved successfully:", savedFood);
+        console.log(" Food saved successfully:", savedFood);
 
         setCustomFood({ name: "", calories: "" });
         setShowCustomForm(false);
         fetchLatestSelectedFood();
       } catch (error) {
-        console.error("❌ Error saving food:", error);
+        console.error(" Error saving food:", error);
       }
     }
   };
