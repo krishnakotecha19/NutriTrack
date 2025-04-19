@@ -26,7 +26,7 @@ const SignUp = () => {
 
     const requestData = { username, email, password };
 
-    console.log("🚀 Sending data:", requestData);
+    console.log("Sending data:", requestData);
 
     try {
         const response = await fetch(`${API_BASE_URL}/api/accounts/signup/`, {
@@ -38,7 +38,7 @@ const SignUp = () => {
         });
 
         const data = await response.json();
-        console.log("📝 Signup Response:", data);
+        console.log(" Signup Response:", data);
 
         if (response.ok) {
             navigate("/login");
@@ -46,7 +46,7 @@ const SignUp = () => {
             setError(data.error || "Signup failed. Please try again.");
         }
     } catch (error) {
-        console.error("❌ Error during signup:", error);
+        console.error(" Error during signup:", error);
         setError("Something went wrong. Please try again.");
     }
   };
