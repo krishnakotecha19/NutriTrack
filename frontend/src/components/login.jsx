@@ -25,11 +25,11 @@ const Login = ({ setIsLoggedIn }) => {
         }
 
         const csrfData = await csrfResponse.json();
-        console.log("🛡️ CSRF Token Received:", csrfData.csrfToken);
+        console.log(" CSRF Token Received:", csrfData.csrfToken);
 
         return csrfData.csrfToken || null;
     } catch (error) {
-        console.error("❌ CSRF Token Fetch Error:", error);
+        console.error(" CSRF Token Fetch Error:", error);
         return null;
     }
   };
@@ -41,7 +41,7 @@ const Login = ({ setIsLoggedIn }) => {
     try {
         const csrfToken = await fetchCSRFToken();
 
-        console.log("📡 Sending Login Request...");
+        console.log("Sending Login Request");
 
         const response = await fetch(`${API_BASE_URL}/api/accounts/login/`, {
             method: "POST",
@@ -57,19 +57,19 @@ const Login = ({ setIsLoggedIn }) => {
         });
 
         const data = await response.json();
-        console.log("📝 Response Data:", data);
+        console.log(" Response Data:", data);
 
         if (response.ok) {
-            console.log("✅ Login successful", data);
+            console.log(" Login successful", data);
             localStorage.setItem("user_id", data.user_id);
             setIsLoggedIn(true);
             navigate("/home");
         } else {
-            console.error("❌ Login Error:", data);
+            console.error(" Login Error:", data);
             setError(data.error || "Invalid credentials");
         }
     } catch (error) {
-        console.error("❌ Network Error:", error);
+        console.error(" Network Error:", error);
         setError("Something went wrong. Please try again.");
     }
   };

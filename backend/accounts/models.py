@@ -36,14 +36,14 @@ from django.contrib.auth.models import User
 
 class SelectedFood(models.Model):
     id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id',null=True)  # ✅ Map to existing user_id column
+    user = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id',null=True) 
     food_name = models.CharField(max_length=255)
     calories_kcal = models.FloatField()
     selected_at = models.DateTimeField(default=now)
     session_key = models.CharField(max_length=40, null=True, blank=True)  
 
     class Meta:
-        db_table = 'selectedfood'  # ✅ Ensure it maps to the correct table
+        db_table = 'selectedfood'  
         ordering = ['selected_at']
 
     def __str__(self):
@@ -54,13 +54,13 @@ from django.contrib.auth.models import User
 from django.utils.timezone import now
 
 class History(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)  # Refers to user_id
-    date = models.DateField(default=now)  # Date column
-    total_calories = models.IntegerField(default=0)  # Default 0 if not provided
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  
+    date = models.DateField(default=now) 
+    total_calories = models.IntegerField(default=0)  
 
     class Meta:
         unique_together = ('user', 'date') 
-        db_table = "history" # Ensures only one entry per user per date
+        db_table = "history"
 
     def __str__(self):
         return f"{self.user.username} - {self.date}: {self.total_calories} kcal"

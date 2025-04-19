@@ -3,15 +3,15 @@ import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const navigate = useNavigate();
-  const [history, setHistory] = useState(0); // ✅ Today's total
-  const [historyList, setHistoryList] = useState([]); // ✅ Full history list
+  const [history, setHistory] = useState(0); 
+  const [historyList, setHistoryList] = useState([]); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [csrfToken, setCsrfToken] = useState("");
 
   const API_BASE_URL = process.env.REACT_APP_API_URL;
 
-  // ✅ Fetch CSRF token
+ 
   const fetchCsrfToken = async () => {
     try {
       const response = await fetch(`${API_BASE_URL}/api/accounts/csrf/`, {
@@ -24,7 +24,7 @@ const Home = () => {
     }
   };
 
-  // ✅ Fetch today's calorie history
+  
   const fetchCalorieHistory = async () => {
     try {
       const userId = localStorage.getItem("user_id");
@@ -52,13 +52,13 @@ const Home = () => {
         setError(data.error || "Failed to fetch calorie history.");
       }
     } catch (err) {
-      console.error("❌ Error fetching today's history:", err);
+      console.error(" Error fetching today's history:", err);
       setError("Something went wrong.");
     }
     setLoading(false);
   };
 
-  // ✅ Fetch full past history
+  
   const fetchFullHistory = async () => {
     const userId = localStorage.getItem("user_id");
     const response = await fetch(
@@ -67,10 +67,10 @@ const Home = () => {
     );
     const data = await response.json();
 
-    // Get today's date in YYYY-MM-DD format
+    
     const today = new Date().toISOString().split("T")[0];
 
-    // Filter out today's entry
+    
     const filteredHistory = data.history.filter(
       (item) => item.date !== today
     );
@@ -79,7 +79,7 @@ const Home = () => {
     console.log("📆 Filtered Past History:", filteredHistory);
   };
 
-  // ✅ Update calories when food is added
+ 
   const updateCalorieHistory = async (calories) => {
     try {
       await fetchCsrfToken();
@@ -104,7 +104,7 @@ const Home = () => {
       );
 
       const data = await response.json();
-      console.log("✅ Calories Updated:", data);
+      console.log(" Calories Updated:", data);
 
       if (response.ok) {
         setHistory(data.total_calories || 0);
@@ -112,12 +112,12 @@ const Home = () => {
         setError(data.error || "Failed to update calories.");
       }
     } catch (err) {
-      console.error("❌ Error updating calories:", err);
+      console.error(" Error updating calories:", err);
       setError("Something went wrong.");
     }
   };
 
-  // ✅ Fetch data on component mount
+  
   useEffect(() => {
     fetchCalorieHistory();
     fetchFullHistory();

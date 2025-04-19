@@ -1,14 +1,13 @@
 
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
+
+
 SECRET_KEY = 'django-insecure-!106hpg1xl48qg5li4x4x3^7x8x(uwn8@p01)r8w@ro96svshm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -37,7 +36,7 @@ INSTALLED_APPS = [
 
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',  # ✅ Add this at the top
+    'corsheaders.middleware.CorsMiddleware', 
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -53,16 +52,16 @@ MIDDLEWARE = [
 # settings.py
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000", 
-     "http://127.0.0.1:3000", # Add your frontend URL
+     "http://127.0.0.1:3000", 
 ]
 CORS_ALLOW_HEADERS = [
     "authorization",
     "content-type",
-    "x-csrftoken",  # ✅ Allow CSRF token to be sent in headers
+    "x-csrftoken",  
 ]
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-       "http://127.0.0.1:3000",  # Allow frontend
+       "http://127.0.0.1:3000", 
 ]
 
 CORS_ALLOW_CREDENTIALS = True  
@@ -91,8 +90,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 
 
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+
 
 DATABASES = {
     'default': {
@@ -126,8 +124,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.1/topics/i18n/
+
 
 LANGUAGE_CODE = 'en-us'
 
@@ -138,13 +135,11 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
+
 
 STATIC_URL = 'static/'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
@@ -158,23 +153,18 @@ REST_FRAMEWORK = {
 }
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:3000",  # Add your frontend URL
+    "http://localhost:3000", 
 ]
 CORS_ALLOW_ALL_ORIGINS = True 
 CSRF_COOKIE_NAME = "csrftoken"
-SESSION_COOKIE_SECURE = False  # Keep this False in development
+SESSION_COOKIE_SECURE = False 
 SESSION_COOKIE_HTTPONLY = False
 SESSION_COOKIE_SAMESITE = "None" 
-CSRF_COOKIE_SAMESITE = "Lax"  # Allow requests from the frontend
- # Important for cross-origin requests
-# AUTHENTICATION_BACKENDS = ['accounts.backends.EmailBackend']
-# Disable CSRF validation in development for testing
-
-# Allow for cross-origin requests
+CSRF_COOKIE_SAMESITE = "Lax" 
 
 DEBUG=True
-USE_TZ = True  # Ensure this is set
-TIME_ZONE = 'Asia/Kolkata'  # Change to your timezone if needed
+USE_TZ = True 
+TIME_ZONE = 'Asia/Kolkata'  
 
 
 
