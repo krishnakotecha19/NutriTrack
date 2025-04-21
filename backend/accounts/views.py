@@ -61,7 +61,7 @@ def signup_view(request):
             if User.objects.filter(email=email).exists():
                 return JsonResponse({"error": "Email already registered"}, status=400)
 
-            # ✅ Create user in Django's built-in `auth_user` model
+            #  Create user in Django's built-in `auth_user` model
             user = User.objects.create_user(
                 username=username, 
                 email=email, 
@@ -81,17 +81,17 @@ def custom_login(request):
             email = data.get("email")
             password = data.get("password")
 
-            # ✅ Get user from Django's `User` model
+            #  Get user from Django's `User` model
             user = User.objects.filter(email=email).first()
 
             if user is not None:
-                # ✅ Authenticate using Django’s built-in authentication
+                #  Authenticate using Django’s built-in authentication
                 authenticated_user = authenticate(username=user.username, password=password)
 
                 if authenticated_user:
                     return JsonResponse({
                         "message": "Login successful",
-                        "user_id": user.id  # ✅ Return user_id for frontend storage
+                        "user_id": user.id  #  Return user_id for frontend storage
                     }, status=200)
                 else:
                     return JsonResponse({"error": "Invalid email or password"}, status=401)
@@ -178,15 +178,15 @@ def get_food_list(request):
 
 @api_view(["POST"])
 def add_food(request):
-    print("Received POST request:", request.data)  # ✅ Check if the request reaches Django
+    print("Received POST request:", request.data)  #  Check if the request reaches Django
     
     serializer = FoodSerializer(data=request.data)
     if serializer.is_valid():
         food = serializer.save()
-        print("Food saved:", food.food_name, food.calories_kcal)  # ✅ Check if the data is stored
+        print("Food saved:", food.food_name, food.calories_kcal)  #  Check if the data is stored
         return Response({"message": "Food item added successfully!"}, status=status.HTTP_201_CREATED)
     
-    print("Validation errors:", serializer.errors)  # ✅ If data is invalid
+    print("Validation errors:", serializer.errors)  #  If data is invalid
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 # Food List View (no changes needed)
 class FoodList(APIView):
@@ -199,10 +199,10 @@ class FoodList(APIView):
 @api_view(['POST'])
 def add_custom_food(request):
     try:
-        # ✅ Correct way to access request data in Django REST Framework
+        #  Correct way to access request data in Django REST Framework
         data = request.data
 
-        # ✅ Ensure correct field names match your model
+        #  Ensure correct field names match your model
         food = Food.objects.create(
             food_name=data.get('food_name'),
             calories_kcal=data.get('calories_kcal'),
@@ -217,7 +217,7 @@ def add_custom_food(request):
         }, status=201)
 
     except Exception as e:
-        print("Error:", str(e))  # ✅ Print error in Django logs
+        print("Error:", str(e))  #  Print error in Django logs
         return Response({"error": str(e)}, status=500)
   
     return JsonResponse({"error": "Invalid request method"}, status=405)
@@ -243,16 +243,16 @@ def add_selected_food(request):
     if request.method == "POST":
         try:
             data = json.loads(request.body)
-            user_id = data.get("user_id")  # ✅ Get user_id from frontend
+            user_id = data.get("user_id")  #  Get user_id from frontend
             food_name = data.get("food_name")
             calories_kcal = data.get("calories_kcal")
 
             if not user_id:
                 return JsonResponse({"error": "User ID is required"}, status=400)
 
-            user = User.objects.get(id=user_id)  # ✅ Fetch user from database
+            user = User.objects.get(id=user_id)  # Fetch user from database
 
-            # ✅ Store food along with user_id
+            #  Store food along with user_id
             selected_food = SelectedFood.objects.create(
                 user=user,
                 food_name=food_name,
@@ -314,7 +314,7 @@ def update_history(user_id):
     except User.DoesNotExist:
         return None
 
-    # ✅ Filter food entries where selected_at (converted to date) = today
+    # Filter food entries where selected_at (converted to date) = today
     foods_today = SelectedFood.objects.filter(
         user=user
     ).annotate(
@@ -327,11 +327,11 @@ def update_history(user_id):
     for f in foods_today:
         print(f.food_name, "|", f.selected_at)
 
-    # ✅ Sum total calories
+    #  Sum total calories
     total_calories = foods_today.aggregate(Sum("calories_kcal"))["calories_kcal__sum"] or 0
     total_calories = int(total_calories)
 
-    # ✅ Get or create today's history record
+    # Get or create today's history record
     history, created = History.objects.get_or_create(
         user=user,
         date=today,
@@ -341,13 +341,13 @@ def update_history(user_id):
     if not created:
         history.total_calories = total_calories
         history.save()
-        print("✏️ Updated existing history record.")
+        print(" Updated existing history record.")
 
-    print(f"✅ Total Calories saved in history: {history.total_calories}")
+    print(f"Total Calories saved in history: {history.total_calories}")
     return history
 
 
-# ✅ 2. API endpoint to manually trigger history update
+#  2. API endpoint to manually trigger history update
 def update_history_view(request):
     user_id = request.GET.get("user_id")
 
@@ -371,7 +371,7 @@ def update_history_view(request):
 
 from django.utils.timezone import localdate
 
-# ✅ 3. API to get today’s calories after updating
+#  3. API to get today’s calories after updating
 def get_calories(request):
     user_id = request.GET.get("user_id")
 
@@ -384,16 +384,16 @@ def get_calories(request):
         return JsonResponse({"error": "Invalid user_id"}, status=400)
 
     today = localdate()
-    print("🔥 update_history called for user:", user_id)
+    print(" update_history called for user:", user_id)
 
-    # 🔄 Always refresh the history before fetching
+    #  Always refresh the history before fetching
     history = update_history(user_id)
 
     if history:
-        print(f"📊 Calories for User {user_id} on {today}: {history.total_calories}")
+        print(f" Calories for User {user_id} on {today}: {history.total_calories}")
         return JsonResponse({"total_calories": history.total_calories})
     else:
-        print(f"⚠️ No history found for User {user_id} on {today}")
+        print(f" No history found for User {user_id} on {today}")
         return JsonResponse({"total_calories": 0})
  
 from django.views.decorators.csrf import csrf_exempt
@@ -411,13 +411,13 @@ def get_full_history(request):
     except (ValueError, User.DoesNotExist):
         return JsonResponse({"error": "Invalid or non-existent user_id"}, status=404)
 
-    # 🔄 Optional: Update today's history before fetching all
+    #  Optional: Update today's history before fetching all
     update_history(user_id)
 
-    # 📅 Get all history entries for the user, sorted by date (latest first)
+    #  Get all history entries for the user, sorted by date (latest first)
     history_entries = History.objects.filter(user=user).order_by("-date")
 
-    print("📚 Fetched history entries:", history_entries.count())
+    print(" Fetched history entries:", history_entries.count())
 
     data = [
         {

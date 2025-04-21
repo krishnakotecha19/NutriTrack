@@ -9,11 +9,11 @@ import Trends from './components/Trends';
 import Profile from './components/Profile';
 import Navigation from './components/navigation';
 
-// ProtectedRoute component to handle redirects when not logged in
+
 const ProtectedRoute = ({ element, isLoggedIn }) => {
   return isLoggedIn ? (
     <>
-      <Navigation />  {/* Show navigation only in protected routes */}
+      <Navigation />  {}
       {element}
     </>
   ) : (
