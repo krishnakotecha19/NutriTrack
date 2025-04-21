@@ -195,7 +195,7 @@ justify-content: space-between;
   background-color: #f1f8e9;
 }
 
-/* Animation */
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -236,19 +236,19 @@ justify-content: space-between;
 }
 
 .total-calories{
-position: absolute;  /* Position it at the bottom */
-bottom: 80px;  /* Adjust as needed */
-left: 40%;  /* Center it */
+position: absolute; 
+bottom: 80px;  
+left: 40%;  
 transform: translateX(-50%);
 font-weight: bold;
 
 }
 .history {
-max-height: 50vh;  /* Set max height */
-overflow-y: auto;   /* Enable vertical scrolling */
+max-height: 50vh;  
+overflow-y: auto;   
 border: 1px solid #ddd;
 padding: 10px;
-background: padding-box; /* Match background */
+background: padding-box; 
 border-radius: 8px;
 }
 
@@ -257,9 +257,9 @@ width: 100%;
 border-collapse: collapse;
 }
 
-/* Table Header - No sticky positioning */
+
 .history thead {
-background: #f4f4f4; /* Light background */
+background: #f4f4f4;
 }
 
 .history thead th {
@@ -330,7 +330,7 @@ background-color: var(--background-color);
 min-height: 100vh;
 display: flex;
 flex-direction: column;
-align-items: flex-start; /* aligns to the left */
+align-items: flex-start; 
 }
 
 .home-container h2 {
@@ -352,7 +352,7 @@ margin-top: 3rem;
 text-align: center;
 width: 90%;
 max-width: 400px;
-align-self: center; /* center card even though container aligns left */
+align-self: center;
 }
 
 .add-food-btn {
@@ -365,7 +365,7 @@ font-weight: 600;
 border-radius: 12px;
 cursor: pointer;
 width: 300px;
-margin: 1rem auto; /* only small margin above & below */
+margin: 1rem auto; 
 display: block;
 transition: background-color 0.3s ease;
 }
@@ -396,8 +396,8 @@ color: var(--text-secondary);
 margin-top: 1rem;
 text-align: left;
 font-size: 1rem;
-display: flex; /* Make content go side-by-side */
-justify-content: space-evenly; /* Space between date and kcal */
+display: flex; 
+justify-content: space-evenly;
 }
 
 .error {

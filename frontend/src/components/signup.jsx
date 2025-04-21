@@ -26,7 +26,11 @@ const SignUp = () => {
 
     const requestData = { username, email, password };
 
+<<<<<<< HEAD
     console.log("Sending data:", requestData);
+=======
+    console.log(" Sending data:", requestData);
+>>>>>>> a9116fc (made new file for registering pwa)
 
     try {
         const response = await fetch(`${API_BASE_URL}/api/accounts/signup/`, {

@@ -1,5 +1,5 @@
 import React from "react";
-import "./styles.css"; // Make sure this is imported
+import "./styles.css"; 
 
 const Trends = () => {
   return (

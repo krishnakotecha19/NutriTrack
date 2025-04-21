@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './WelcomePage.css'; // Import CSS for styling
+import './WelcomePage.css'; 
 
 function WelcomePage() {
   const navigate = useNavigate();
