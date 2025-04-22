@@ -10,7 +10,9 @@ function WelcomePage() {
       <div className="welcome-card">
         <img src="/favicon.png" alt="BalanceBites Logo" className="logo" />
         <h1>Welcome to Feastify!</h1>
-        <p>Lets manage your calories!!</p>
+        <p>Lets manage your calories !!
+        <br />
+        App may take a few seconds to load. </p>
         <button onClick={() => navigate('/login')}>Let’s get started</button>
       </div>
     </div>
