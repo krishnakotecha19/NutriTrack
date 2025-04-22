@@ -1,5 +1,6 @@
 {
-  "short_name": "Feastify App",
+  "short_name": "Feastify-Calorie tracker",
+  "description": "Feastify is a calorie tracker that helps you manage your daily caloric intake and maintain a healthy lifestyle.",
   "name": "Feastify",
   "icons": [
     {

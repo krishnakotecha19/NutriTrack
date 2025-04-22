@@ -38,12 +38,8 @@ self.addEventListener('activate', (event) => {
 });
 self.addEventListener('fetch', (event) => {
     if (event.request.url.endsWith('manifest.json')) {
-      
-      event.respondWith(
-        fetch(event.request).then((response) => {
-          return response;
-        })
-      );
+      console.log('[SW] Fetching fresh manifest from network');
+      event.respondWith(fetch(event.request)); // no caching
     } else {
       event.respondWith(
         caches.match(event.request).then((response) => {
