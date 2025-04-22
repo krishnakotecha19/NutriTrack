@@ -1,4 +1,5 @@
-const CACHE_NAME = 'feastify-cache-v99'; 
+const CACHE_NAME = 'feastify-cache-v100'; 
+
 const urlsToCache = [
   '/',
   '/index.html',
@@ -35,24 +36,20 @@ self.addEventListener('activate', (event) => {
   );
   return self.clients.claim(); 
 });
-
-// Always fetch from network first, then cache
 self.addEventListener('fetch', (event) => {
-  if (event.request.url.endsWith('manifest.json')) {
-    console.log('[SW] Fetching manifest fresh from network');
-    event.respondWith(
-      fetch(event.request).then((response) => {
-        return caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, response.clone());
+    if (event.request.url.endsWith('manifest.json')) {
+      
+      event.respondWith(
+        fetch(event.request).then((response) => {
           return response;
-        });
-      })
-    );
-  } else {
-    event.respondWith(
-      caches.match(event.request).then((response) => {
-        return response || fetch(event.request);
-      })
-    );
-  }
-});
+        })
+      );
+    } else {
+      event.respondWith(
+        caches.match(event.request).then((response) => {
+          return response || fetch(event.request);
+        })
+      );
+    }
+  });
+  
