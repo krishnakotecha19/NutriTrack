@@ -1,17 +1,16 @@
-const CACHE_NAME = 'feastify-cache-v99'; // 🔁 Change this every time you deploy!
-
+const CACHE_NAME = 'feastify-cache-v99'; 
 const urlsToCache = [
   '/',
   '/index.html',
   '/manifest.json',
   '/logo.png',
-  '/favicon.ico',
+  '/favicon.ico'        ,
 ];
 
 // Force install and cache files
 self.addEventListener('install', (event) => {
   console.log('[SW] Installing and caching');
-  self.skipWaiting(); // 🔥 Force install immediately
+  self.skipWaiting(); 
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(urlsToCache);
@@ -34,7 +33,7 @@ self.addEventListener('activate', (event) => {
       );
     })
   );
-  return self.clients.claim(); // 🔥 Force control of all clients
+  return self.clients.claim(); 
 });
 
 // Always fetch from network first, then cache
